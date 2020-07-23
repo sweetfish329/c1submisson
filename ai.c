@@ -5,31 +5,34 @@
 #include "game.h"
 #include "ai.h"
 
-void select(int x, situation *y)
+void sel(int x, situation *y)
 {
-    if (strcmp(y->player1.name, "AI") == 0)
-    {
+    // if (strcmp(y->player1.name, "AI") == 0)
+    // {
         switch (x)
         {
-        case 0:tft(y);break;
-        case 1:rtft(y);break;
-        case 2:tftt(y);break;
-        case 3:friedman(y);break;
-        case 4:joss(y);break;
-        case 5:davis(y);break;
-        case 6:random(y);break;
-        case 7:alld(y);break;
-        case 8:allc(y);break;
-        default:
-            break;
+        case 1:tft(y);break;
+        case 2:rtft(y);break;
+        case 3:tftt(y);break;
+        case 4:friedman(y);break;
+        case 5:joss(y);break;
+        case 6:davis(y);break;
+        case 7:randcoice(y);break;
+        case 8:alld(y);break;
+        case 9:allc(y);break;
+        default:break;
         }
-    }
+    // }
 }
 
 // しっぺ返し　初回協調
 void tft(situation *y)
 {
-    strcpy(y->player2.log[y->count],y->player1.log[y->count-1]);
+    if(y->count==0){
+        y->player2.log[y->count]=0;
+    }else{
+        y->player2.log[y->count]=y->player1.log[y->count-1];
+    }
     return;
 }
 
@@ -117,7 +120,7 @@ void davis(situation *y){
 }
 
 // でたらめ戦略
-void random(situation *y){
+void randcoice(situation *y){
     srand((unsigned int)time(NULL));
     y->player2.log[y->count]=rand()%2;
 }

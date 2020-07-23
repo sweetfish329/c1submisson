@@ -60,53 +60,53 @@ void choose(int *c)
 //選択を判別してHPに反映
 void judge(situation *x)
 {
-    printf("1 is %d\n", (*x).player1.log[(*x).count]);
-    printf("2 is %d\n", (*x).player2.log[(*x).count]);
-    if ((*x).player1.log[(*x).count] == 0)
+    printf("1 is %d\n", x->player1.log[x->count]);
+    printf("2 is %d\n", x->player2.log[x->count]);
+    if (x->player1.log[x->count] == 0)
     {
-        if ((*x).player2.log[(*x).count] == 0)
+        if (x->player2.log[x->count] == 0)
         {
-            (*x).player1.hpleft -= 2;
-            (*x).player2.hpleft -= 2;
+            x->player1.hpleft -= 2;
+            x->player2.hpleft -= 2;
         }
         else
         {
-            (*x).player1.hpleft -= 10;
+            x->player1.hpleft -= 10;
         }
     }
     else
     {
-        if ((*x).player2.log[(*x).count] == 0)
+        if (x->player2.log[x->count] == 0)
         {
-            (*x).player2.hpleft -= 10;
+            x->player2.hpleft -= 10;
         }
         else
         {
-            (*x).player1.hpleft -= 5;
-            (*x).player2.hpleft -= 5;
+            x->player1.hpleft -= 5;
+            x->player2.hpleft -= 5;
         }
     }
 
-    (*x).count++;
-    // printf("%d",(*x).count);
+    x->count++;
+    // printf("%d",x->count);
     return;
 }
 
 // HPの状態の表示
 void result(situation *x)
 {
-    printf("%s's left HP is %d\n", (*x).player1.name, (*x).player1.hpleft);
-    line('=', (*x).player1.hpleft);
+    printf("%s's left HP is %d\n", x->player1.name, x->player1.hpleft);
+    line('=', x->player1.hpleft);
     putchar('\n');
-    printf("%s's left HP is %d\n", (*x).player2.name, (*x).player2.hpleft);
-    line('=', (*x).player2.hpleft);
+    printf("%s's left HP is %d\n", x->player2.name, x->player2.hpleft);
+    line('=', x->player2.hpleft);
     putchar('\n');
     return;
 }
 
 // 協調及び裏切りの決断
 void decision(status *x,int count) {
-        printf("%s's tern\n", (*x).name);
+        printf("%s's tern\n", x->name);
         printf("Which way you choose is?\n");
         printf("0.keep silent 1.confession\n");
         choose(&x->log[count]);

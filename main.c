@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "game.h"
+#include "ai.h"
 
 #define HP 40
 
@@ -11,7 +12,7 @@ int main()
     //変数及び構造体の宣言
     int i, o;
     char w2[20];
-    struct situation situation = {
+    situation sit = {
         player1 : {hpleft : HP},
         player2 : {hpleft : HP},
         count : 0,
@@ -31,7 +32,7 @@ int main()
     choose(&i);
     if (i == 0)
     {
-        strcpy(situation.player2.name, "AI");
+        strcpy(sit.player2.name, "AI");
         printf("Do you want to choose AI's move?\n0.yes 1.no");
         choose(&o);
         if (o == 1)
@@ -39,33 +40,36 @@ int main()
             // show options and scanf it.
         }else{
             srand((unsigned int)time(NULL));
-            situation.aimode=rand()%9;
+            sit.aimode=rand()%9;
         }
     }
 
     // プレイヤー名の入力
     printf("Input Player1's username.\n");
     scanf("%s", w2);
-    strcpy(situation.player1.name, w2);
+    strcpy(sit.player1.name, w2);
     printf("Input Player2's username.\n");
     rewind(stdin);
     strcpy(w2, "");
     scanf("%s", w2);
-    strcpy(situation.player2.name, w2);
+    strcpy(sit.player2.name, w2);
 
     // ゲーム本編ループ HPが0で終了
     do
     {
-        result(&situation);
+        result(&sit);
 
         // 協調及び裏切りの選択
-        decision(&situation.player1,situation.count);
-        decision(&situation.player2,situation.count);
-
+        decision(&sit.player1,sit.count);
+        if(sit.aimode==0){
+        decision(&sit.player2,sit.count);
+        }else{
+            select(sit.aimode,&sit);
+        }
         // 入力内容をもとにHPに反映
-        judge(&situation);
+        judge(&sit);
 
-    } while (situation.player1.hpleft > 0 && situation.player2.hpleft > 0);
+    } while (sit.player1.hpleft > 0 && sit.player2.hpleft > 0);
 
     // 勝者の出力
     // printf("%s WIN!");

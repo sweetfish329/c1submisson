@@ -4,13 +4,13 @@
 #define NAMESIZE 20
 #define LOGSIZE 20
 
-typedef struct status{
+typedef struct {
     char name[NAMESIZE];
     int hpleft;
     int log[LOGSIZE];
 }status;
 
-typedef struct situation{
+typedef struct {
     status player1;
     status player2;
     int count;

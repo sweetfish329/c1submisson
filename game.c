@@ -2,8 +2,7 @@
 #include <time.h>
 #include "game.h"
 
-
-// sleep func without windows.h
+// 遅延関数
 int sleep(unsigned long x)
 {
     clock_t s = clock();
@@ -17,12 +16,11 @@ int sleep(unsigned long x)
     return (1);
 }
 
-
-//print line
-void line(char x)
+//ターミナル上に線の出力
+void line(char x, int i)
 {
-    int i;
-    for (i = 0; i < 40; i++)
+    int j;
+    for (j = 0; j < i; j++)
     {
         putchar(x);
     }
@@ -30,7 +28,7 @@ void line(char x)
     return;
 }
 
-// scan y or n as 0 or 1, return err and show help 
+//y/n,helpの入力とエラー及びhelpの表示
 void choose(int *c)
 {
     while (1)
@@ -38,12 +36,18 @@ void choose(int *c)
         scanf("%d", c);
         if (*c == 0 || *c == 1)
         {
-            printf("===%d===\n", *c);
+            // printf("===%d===\n", *c);
             return;
         }
         else if (*c == 3)
         {
-            printf("======================================\n            |b:     |b:\n            |silemt |confession\n----------------------------------\na:          |a-2    |a-10\nsilent      |b-2    |b-0\n-----------------------------------\na:          |a-0    |a-5\nconfession  |b-10   |b-5\n========================================\n");
+            line('=',40);
+            printf("            |b:     |b:\n            |silemt |confession\n");
+            line('-',40);
+            printf("a:          |a-2    |a-10\nsilent      |b-2    |b-0\n");
+            line('-',40);
+            printf("a:          |a-0    |a-5\nconfession  |b-10   |b-5\n");
+            line('=',40);
         }
         else
         {
@@ -53,14 +57,14 @@ void choose(int *c)
     }
 }
 
-//decreace hp 
+//選択を判別してHPに反映
 void judge(situation *x)
 {
-    printf("1 is %d\n", (*x).player1.choice);
-    printf("2 is %d\n", (*x).player2.choice);
-    if ((*x).player1.choice == 0)
+    printf("1 is %d\n", (*x).player1.log[(*x).count]);
+    printf("2 is %d\n", (*x).player2.log[(*x).count]);
+    if ((*x).player1.log[(*x).count] == 0)
     {
-        if ((*x).player2.choice == 0)
+        if ((*x).player2.log[(*x).count] == 0)
         {
             (*x).player1.hpleft -= 2;
             (*x).player2.hpleft -= 2;
@@ -72,7 +76,7 @@ void judge(situation *x)
     }
     else
     {
-        if ((*x).player2.choice == 0)
+        if ((*x).player2.log[(*x).count] == 0)
         {
             (*x).player2.hpleft -= 10;
         }
@@ -82,19 +86,40 @@ void judge(situation *x)
             (*x).player2.hpleft -= 5;
         }
     }
+
     (*x).count++;
+    // printf("%d",(*x).count);
     return;
 }
 
-
-//format char array
-void chclean(char *x)
+// HPの状態の表示
+void result(situation *x)
 {
-    int size, i;
-    size = sizeof(x) / sizeof(char);
-    for (i = 0; i < size; i++)
-    {
-        x[i] = "";
-    }
+    printf("%s's left HP is %d\n", (*x).player1.name, (*x).player1.hpleft);
+    line('=', (*x).player1.hpleft);
+    putchar('\n');
+    printf("%s's left HP is %d\n", (*x).player2.name, (*x).player2.hpleft);
+    line('=', (*x).player2.hpleft);
+    putchar('\n');
     return;
 }
+
+// 協調及び裏切りの決断
+void decision(status *x,int count) {
+        printf("%s's tern\n", (*x).name);
+        printf("Which way you choose is?\n");
+        printf("0.keep silent 1.confession\n");
+        choose(&x->log[count]);
+}
+
+//format char array ->strcpy()
+// void chclean(char *x)
+// {
+//     int size, i;
+//     size = sizeof(x) / sizeof(char);
+//     for (i = 0; i < size; i++)
+//     {
+//         x[i] = "";
+//     }
+//     return;
+// }

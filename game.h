@@ -1,23 +1,29 @@
 #ifndef GAME_H //二重でincludeされることを防ぐ
 #define GAME_H
 
+#define NAMESIZE 20
+#define LOGSIZE 20
+
 typedef struct status{
-    char name[20];
-    int choice;
+    char name[NAMESIZE];
     int hpleft;
+    int log[LOGSIZE];
 }status;
 
 typedef struct situation{
     status player1;
     status player2;
     int count;
+    int aimode;
 }situation;
 
 
 void choose(int *c);
 void judge(situation* x);
-void line(char x);
+void line(char x,int i);
 int sleep(unsigned long x);
-void chclean(char* x);
+void result(situation *x);
+void decision(status *x,int count);
+// void chclean(char* x);
 
 #endif

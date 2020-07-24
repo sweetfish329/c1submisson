@@ -58,7 +58,7 @@ void choose(int *c)
         }
         else
         {
-            printf("ERROR. 再入力");
+            printf("ERROR. 再入力\n");
             rewind(stdin);
         }
     }

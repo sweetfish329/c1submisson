@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <time.h>
-#include<string.h>
+// #include<string.h>
 #include <stdlib.h>
 #include "game.h"
 #include "ai.h"
 
 void sel(int x, situation *y)
 {
-    // if (strcmp(y->player1.name, "AI") == 0)
-    // {
         switch (x)
         {
         case 1:tft(y);break;
@@ -22,7 +20,7 @@ void sel(int x, situation *y)
         case 9:allc(y);break;
         default:break;
         }
-    // }
+        // printf("AI mode is %d\n",x);
 }
 
 // しっぺ返し　初回協調
@@ -42,6 +40,7 @@ void rtft(situation *y){
         y->player2.log[y->count]=1;
     }else{
         tft(y);
+        y->aimode=1;
     }
 }
 

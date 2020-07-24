@@ -3,13 +3,13 @@
 #include<string.h>
 
 
-void arrainput(int *x,int t){
-    scanf("%d",x);
+void arrainput(int *t){
+    *t=4;
     return;
 }
 
 int main (){
-    int a[20];
-    arrainput(a,0);
-    printf("%d",a[0]);
+    int t=3;
+    arrainput(&t);
+    printf("%d",t);
 }

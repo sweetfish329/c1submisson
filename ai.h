@@ -1,4 +1,4 @@
-#ifndef AI_H //二重でincludeされることを防ぐ
+#ifndef AI_H
 #define AI_H
 
 void sel(int x, situation *y);

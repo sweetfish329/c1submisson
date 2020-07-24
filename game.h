@@ -1,4 +1,4 @@
-#ifndef GAME_H //二重でincludeされることを防ぐ
+#ifndef GAME_H 
 #define GAME_H
 
 #define NAMESIZE 20
@@ -24,6 +24,7 @@ void line(char x,int i);
 int sleep(unsigned long x);
 void result(situation *x);
 void decision(status *x,int count);
+void bluff(int x);
 // void chclean(char* x);
 
 #endif

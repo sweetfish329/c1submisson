@@ -23,7 +23,7 @@ How to play?
 <!-- or -->
 
 ```
-git pull sweetfish329/c1submisson
+git pull sweetfish329/dilemma
 gcc main.c game.c ai.c 
 gcc ./a.out
 ```

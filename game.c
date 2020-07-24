@@ -58,8 +58,12 @@ void choose(int *c)
         }
         else
         {
+            printf("\x1b[49m"); 
+            printf("\x1b[39m");
             printf("ERROR. 再入力\n");
             rewind(stdin);
+            printf("\x1b[40m");
+            printf("\x1b[30m");
         }
     }
 }

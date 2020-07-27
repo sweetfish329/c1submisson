@@ -35,8 +35,7 @@ void choose(int *c)
     while (1)
     {
         scanf("%d", c);
-        printf("\x1b[49m"); 
-        printf("\x1b[39m");
+        SETBLANK;
         if (*c == 0 || *c == 1)
         {
             // printf("===%d===\n", *c);
@@ -44,26 +43,22 @@ void choose(int *c)
         }
         else if (*c == 3)
         {
-            printf("\x1b[49m"); 
-            printf("\x1b[39m");
+            SETBLANK;
             line('=',40);
             printf("            |b:     |b:\n            |黙秘   |自白\n");
             line('-',40);
             printf("a:          |a-2    |a-10\n黙秘        |b-2    |b-0\n");
             line('-',40);
-            printf("a:          |a-0    |a-5\n黙秘        |b-10   |b-5\n");
+            printf("a:          |a-0    |a-5\n自白        |b-10   |b-5\n");
             line('=',40);
-            printf("\x1b[40m");
-            printf("\x1b[30m");
+            SETHIDE;
         }
         else
         {
-            printf("\x1b[49m"); 
-            printf("\x1b[39m");
+            SETBLANK;
             printf("ERROR. 再入力\n");
             rewind(stdin);
-            printf("\x1b[40m");
-            printf("\x1b[30m");
+            SETHIDE;
         }
     }
 }
@@ -87,7 +82,7 @@ void judge(situation *x)
     printf("%sは%sを選択、%sは%sを選択！\n",x->player1.name,w1,x->player2.name,w2);
     // printf("1 is %d\n", x->player1.log[x->count]);
     // printf("2 is %d\n", x->player2.log[x->count]);
-    sleep(600);
+    sleep(SLPDEF*3);
     if (x->player1.log[x->count] == 0)
     {
         if (x->player2.log[x->count] == 0)
@@ -122,19 +117,19 @@ void judge(situation *x)
 void result(situation *x)
 {
     putchar('\n');
-    sleep(200);
+    sleep(SLPDEF);
     printf("%sのHPは%d\n", x->player1.name, x->player1.hpleft);
-    printf("\x1b[35m");
+    SETRED;
     line('=', x->player1.hpleft);
     printf("\x1b[39m");
     putchar('\n');
-    sleep(200);
+    sleep(SLPDEF);
     printf("%sのHPは%d\n", x->player2.name, x->player2.hpleft);
-    printf("\x1b[35m");
+    SETRED;
     line('=', x->player2.hpleft);
     printf("\x1b[39m"); 
     putchar('\n');
-    sleep(800);
+    sleep(SLPDEF*4);
     return;
 }
 
@@ -143,11 +138,9 @@ void decision(status *x,int count) {
         printf("%sのターン\n", x->name);
         printf("どちらの択を取りますか？\n");
         printf("0.黙秘\t1.自白\t3.HELP\n");
-        printf("\x1b[40m");
-        printf("\x1b[30m");
+        SETHIDE;
         choose(&x->log[count]);
-        printf("\x1b[49m"); 
-        printf("\x1b[39m");
+        SETBLANK;
 
 }
 
@@ -163,6 +156,17 @@ void bluff(int x){
         printf("まぁまぁじゃないですか。\n");
     }else if(x<11){
         printf("危なかったね。次はもう少し余裕持っていこう。");
+    }
+}
+
+void colorselect(int x){
+    if(colmode!=0){
+        switch(x){
+            case BLANK:printf("\x1b[49m"); printf("\x1b[39m");break;
+            case RED:printf("\x1b[35m");break;
+            case HIDE:printf("\x1b[40m"); printf("\x1b[30m");break;
+            default: break;
+        }
     }
 }
 //format char array ->strcpy()

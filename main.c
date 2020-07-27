@@ -19,30 +19,39 @@ int main()
         aimode : 0
     };
 
+    printf("windowsとLinux、どちらでプレイしますか？\n");
+    printf("0.Windows\t1.Linux\n");
+    choose(&colmode);
+    if(colmode==0){
+        printf("Windows用に動かします。\n");
+    }else{
+        printf("Linux用に動かします。\n");
+    }
+
     // 囚人のジレンマの紹介
     printf("これは囚人のジレンマというものを参考にしたゲームです。\n");
-    sleep(200);
+    sleep(SLPDEF);
     printf("囚人のジレンマについてさらに知りたい方はWikipediaを参照してください。\n");
-    sleep(800);
+    sleep(SLPDEF*4);
     putchar('\n');
     printf("これは2人の囚人が協調するか、裏切るかを選択するゲームです。\n");
-    sleep(800);
+    sleep(SLPDEF*4);
     printf("今回はその影響がわかりやすいようにHP形式にしてみました！\n");
-    sleep(200);
+    sleep(SLPDEF);
     printf("それぞれの行動と結果を表にしました。\n");
-    sleep(1000);
+    sleep(SLPDEF*5);
         line('=',40);
         printf("            |b:     |b:\n            |黙秘   |自白\n");
         line('-',40);
         printf("a:          |a-2    |a-10\n黙秘        |b-2    |b-0\n");
         line('-',40);
-        printf("a:          |a-0    |a-5\n黙秘        |b-10   |b-5\n");
+        printf("a:          |a-0    |a-5\n自白        |b-10   |b-5\n");
         line('=',40);
-    sleep(1200);
+    sleep(SLPDEF*6);
     printf("相手を一方的に裏切れば相手を出し抜けますが、裏切り合うと二人で黙秘するより大きなダメージを受けてしまいます。\n");
-    sleep(200);
+    sleep(SLPDEF);
     printf("できるだけ多くHPを残したほうの勝ちです。頑張って！\n");
-    sleep(1000);
+    sleep(SLPDEF*5);
     putchar('\n');
     line('=',70);
     // 対人/対AI
